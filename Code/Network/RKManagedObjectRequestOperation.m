@@ -736,10 +736,10 @@ BOOL RKDoesArrayOfResponseDescriptorsContainOnlyEntityMappings(NSArray *response
         return YES;
     }
 
-    if (! [[self.HTTPRequestOperation.request.HTTPMethod uppercaseString] isEqualToString:@"GET"]) {
-        RKLogDebug(@"Skipping deletion of orphaned objects: only performed for GET requests.");
-        return YES;
-    }
+//    if (! [[self.HTTPRequestOperation.request.HTTPMethod uppercaseString] isEqualToString:@"GET"]) {
+//        RKLogDebug(@"Skipping deletion of orphaned objects: only performed for GET requests.");
+//        return YES;
+//    }
     
     if ([self canSkipMapping]) {
         RKLogDebug(@"Skipping deletion of orphaned objects: 304 (Not Modified) status code encountered");
