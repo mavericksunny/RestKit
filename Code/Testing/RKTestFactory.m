@@ -18,18 +18,18 @@
 //  limitations under the License.
 //
 
-#import <AFNetworking/AFHTTPClient.h>
-#import <RestKit/Network/RKObjectManager.h>
-#import <RestKit/Network/RKObjectRequestOperation.h>
-#import <RestKit/Support/RKLog.h>
-#import <RestKit/Support/RKMIMETypeSerialization.h>
-#import <RestKit/Support/RKPathUtilities.h>
-#import <RestKit/Testing/RKTestFactory.h>
+#import "AFHTTPClient.h"
+#import "RKTestFactory.h"
+#import "RKLog.h"
+#import "RKObjectManager.h"
+#import "RKPathUtilities.h"
+#import "RKMIMETypeSerialization.h"
+#import "RKObjectRequestOperation.h"
 
 #ifdef _COREDATADEFINES_H
 #if __has_include("RKCoreData.h")
 #define RKCoreDataIncluded
-#import <RestKit/CoreData/RKManagedObjectStore.h>
+#import "RKManagedObjectStore.h"
 #endif
 #endif
 
@@ -257,9 +257,6 @@
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     }
 
-    // Clear the NSURLCache
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-
     if ([RKTestFactory sharedFactory].setUpBlock) [RKTestFactory sharedFactory].setUpBlock();
 }
 
@@ -269,7 +266,6 @@
 
     // Cancel any network operations and clear the cache
     [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
     // Cancel any object mapping in the response mapping queue
     [[RKObjectRequestOperation responseMappingQueue] cancelAllOperations];

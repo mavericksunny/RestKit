@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 inhibit_all_warnings!
 
 target :RestKit do
-  platform :ios, '5.1.1'
+  platform :ios, '6.1'
   podspec
 end
 
@@ -14,9 +14,8 @@ end
 
 def import_pods
   pod 'RestKit', :path => '.'
-  pod 'RestKit/CocoaLumberjack', :path => '.'
-  pod 'RestKit/Search', :path => '.'
   pod 'RestKit/Testing', :path => '.'
+  pod 'RestKit/Search', :path => '.'
 
   pod 'Specta', '0.2.1'
   pod 'OCMock', '2.2.4'
@@ -28,7 +27,7 @@ def import_pods
 end
 
 target :ios do
-  platform :ios, '5.1.1'
+  platform :ios, '6.1'
   link_with 'RestKitTests'
   import_pods
 end

@@ -19,7 +19,7 @@ XCTasks::TestTask.new(:test) do |t|
 
   t.subtask(ios: 'RestKitTests') do |s|
     s.sdk = :iphonesimulator
-    s.destination('platform=iOS Simulator,OS=8.1,name=iPhone 6')
+    s.destination('platform=iOS Simulator,OS=9.3,name=iPhone 6')
   end
 
   t.subtask(osx: 'RestKitFrameworkTests') do |s|
@@ -164,8 +164,8 @@ end
 
 task :lint do
   title 'Linting pod'
-  run('bundle exec pod lib lint --allow-warnings ')
-  run('bundle exec pod lib lint --allow-warnings  --use-libraries')
+  run('bundle exec pod lib lint')
+  run('bundle exec pod lib lint --use-libraries')
 end
 
 desc 'Runs the CI suite'
@@ -205,12 +205,12 @@ task :release do
   sh "git commit -am 'Release #{tag}'"
   sh "git tag '#{tag}'"
   sh 'git checkout master'
-  sh "git merge --no-ff `#{tag}`"
+  sh "git merge --no-ff --no-edit `#{tag}`"
   sh 'git push --tags'
   sh "git checkout '#{tag}'"
   sh "bundle exec pod trunk push"
   sh 'git checkout development'
-  sh "git merge --no-ff `#{tag}`"
+  sh "git merge --no-ff --no-edit `#{tag}`"
   sh 'git push'
 end
 
