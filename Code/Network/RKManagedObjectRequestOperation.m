@@ -409,9 +409,17 @@ static NSSet *RKManagedObjectsFromObjectWithMappingInfo(id object, RKMappingInfo
             NSArray *mappingInfos = (mappingInfo.relationshipMappingInfo)[destinationKeyPath];
             for (RKMappingInfo *relationshipMappingInfo in mappingInfos) {
                 NSUInteger index = [mappingInfos indexOfObject:relationshipMappingInfo];
-                id mappedObjectAtIndex = ([relationshipValue respondsToSelector:@selector(objectAtIndex:)]) ? relationshipValue[index] : relationshipValue;
+                id mappedObjectAtIndex;
+                if ([relationshipValue respondsToSelector:@selector(objectAtIndex:)] && [relationshipValue count] > index ) {
+                    mappedObjectAtIndex = relationshipValue[index];
+                    
+                }
+                else {
+                    mappedObjectAtIndex = relationshipValue;
+                }
                 [managedObjects unionSet:RKFlattenCollectionToSet(RKManagedObjectsFromObjectWithMappingInfo(mappedObjectAtIndex, relationshipMappingInfo))];
             }
+            
         }
     }
     
